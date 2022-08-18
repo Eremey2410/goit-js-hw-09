@@ -19,11 +19,13 @@ const options = {
   onClose(selectedDates) {
     selectedTime = selectedDates[0];
     if (selectedTime < Date.now()) {
-      Notify.failure('Please choose a date in the future');
+      Notify.failure('Please choose a date in the future', {
+        position: 'center-top',
+      });
       refs.btnStart.disabled = true;
-    } else {
-      refs.btnStart.disabled = false;
+      return;
     }
+    refs.btnStart.disabled = false;
   },
 };
 
@@ -48,7 +50,7 @@ class Timer {
       const deltaTime = selectedTime - currentTime;
       const time = this.convertMs(deltaTime);
       this.onTick(time);
-      if (deltaTime <= 0 || deltaTime <= 1000) {
+      if (deltaTime < 1000) {
         clearInterval(this.intervalId);
         return;
       }
