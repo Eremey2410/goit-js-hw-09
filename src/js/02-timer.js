@@ -27,6 +27,7 @@ const options = {
       return;
     }
     refs.btnStart.disabled = false;
+    refs.inputDate.disabled = true;
   },
 };
 
